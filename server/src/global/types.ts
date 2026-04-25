@@ -1,3 +1,23 @@
+type Calcado = {
+  id: string;
+  nome: string;
+  marca: string;
+  tamanho: number;
+  preco: number;
+};
+
+type CreateCalcadoDTO = Omit<Calcado, 'id'>;
+
+type User =  {
+  id: string,
+  nome: string,
+  email: string,
+  cpf: string,
+  password: string
+};
+
+type CreateUserDTO = Omit<User, 'id'>;
+
 type InsertableDatabase = {
   httpStatus: number;
   message: string;
@@ -24,6 +44,10 @@ type UpdatableDatabaseValue = {
 };
 
 export {
+  Calcado,
+  CreateCalcadoDTO,
+  User,
+  CreateUserDTO,
   InsertableDatabase,
   GetableDatabase,
   RemoveableDatabase,
