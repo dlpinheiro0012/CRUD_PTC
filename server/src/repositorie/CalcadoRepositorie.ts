@@ -5,7 +5,7 @@ export class CalcadoRepository {
   
   async create(data: CreateCalcadoDTO): Promise<Calcado> {
     return await prisma.calçado.create({
-      data,
+      data, 
     });
   }
 

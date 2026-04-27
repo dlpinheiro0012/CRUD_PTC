@@ -5,20 +5,20 @@ import { CreateUserDTO } from "src/global/types";
 
 /**
 Nesse arquivo de controle, eu separei cada uma das funções que se comunciam
- com o usuário dentro de uma classe, compartimentalizando-as nela de forma
+ com o usuário dentro de uma classe, compartimentalizando-as de forma
  assincrona, para não ter delay quando forem chamadas e quebrar o programa 
  caso alguma não responda imdeiatamente. A mesma lógica usada para o CRUD dos
  usuários foi usada no CRUD dos calçados. 
+
+ As funções foram implementadas como Arrow functions
  */
 
 const Urepo = new userRepository(); //Chamando o repositorio que se comunica com o banco de dados
 export class UserControl {
 
-    async createUser(req: Request, res: Response){
+    public createUser = async (req: Request, res: Response) => {
         try {
-            const { nome, email, cpf, password} : CreateUserDTO = req.body;
-
-            const newUser = await Urepo.create({nome,email,cpf,password});
+            const { nome, email, cpf, password } : CreateUserDTO = req.body;
 
             //Em caso de um dos termos não ter sido inserido
             if (!nome || !email || !cpf || !password) {
@@ -26,6 +26,9 @@ export class UserControl {
                     message: "Insira todos os campos do usuário"
                 })
             }
+
+            const newUser = await Urepo.create({nome,email,cpf,password});
+
             //Caso de sucesso
             return res.status(200).json(newUser);
 
@@ -37,7 +40,7 @@ export class UserControl {
         }
     }
 
-    async readAllUsers(req: Request, res: Response) {
+    public readAllUsers = async (req: Request, res: Response) => {
         try {
 
             //Busca todos os usuários dentro do DB
@@ -60,20 +63,20 @@ export class UserControl {
         }
     }
 
-    async updateUser(req: Request, res: Response) {
+    public updateUser = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
 
             if (!id) {
                 return res.status(404).json({
-                    message: "Id não identificado corretamente",
+                    message: "Insira um Id válido",
                 })
             }
 
             //O uso do Partial serve para atualizar apenas alguns dados do usuario
             const dadosAtualizar: Partial<CreateUserDTO> = req.body;
 
-            const UserAtualizado = Urepo.update(id, dadosAtualizar);
+            const UserAtualizado = await Urepo.update(id, dadosAtualizar);
 
             if (!UserAtualizado) {
                 return res.status(404).json({
@@ -90,7 +93,7 @@ export class UserControl {
         }
     }
 
-    async deleteUser(req: Request, res: Response) {
+    public deleteUser = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
 
