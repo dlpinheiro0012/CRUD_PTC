@@ -13,6 +13,14 @@ export class CalcadoRepository {
     return await prisma.calçado.findMany();
   }
 
+  async findBySize(size: number) : Promise<Calcado[]> {
+    return await prisma.calçado.findMany({
+      where: { 
+        tamanho: size 
+      },
+    });
+  }
+
   async update(id: string, data: Partial<CreateCalcadoDTO>): Promise<Calcado> {
     return await prisma.calçado.update({
       where: { id },

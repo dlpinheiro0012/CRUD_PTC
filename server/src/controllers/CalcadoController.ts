@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import prisma from "@database";
 import { CalcadoRepository } from "src/repositorie/CalcadoRepositorie";
 import { CreateCalcadoDTO } from "src/global/types";
 
@@ -32,12 +31,12 @@ export class CalcadoControl {
         }
     }
 
-    public readAllCalcados = async (req: Request, res: Response) => {
+    public readAllCalcados = async ( res: Response) => {
         try {
             
-            const calcados = await prisma.calcado.findMany();
+            const calcados = await Calrepo.findAll();
 
-            if (!calcados) {
+            if (calcados.length == 0) {
                 return res.status(404).json({
                     message: "Nenhum calçado registrado"
                 })
@@ -49,6 +48,34 @@ export class CalcadoControl {
             return res.status(200).json({
                 message: "Erro ao buscar calçados.",
                 error,
+            })
+        }
+    }
+
+    public readBySize = async (req: Request, res: Response) => {
+        try {
+
+            const size  = Number(req.params.tamanho);
+
+            if (isNaN(size)) {
+                return res.status(404).json({
+                    message: "Insira um numero para o tamanho buscado."
+                })
+            };
+            const calcados = await Calrepo.findBySize(size);
+
+            if (calcados.length == 0) {
+                return res.status(404).json({
+                    message: "Nenhum calçado com o tamanho citado foi encontrado."
+                })
+            }
+
+            return res.status(200).json(calcados);
+
+        } catch (error) {
+            return res.status(404).json({
+                message: "Erro ao buscar calçados.",
+                error
             })
         }
     }
