@@ -4,6 +4,7 @@ import { CreateCalcadoDTO } from "src/global/types";
 
 const Calrepo = new CalcadoRepository();
 
+//Todos os comentários e explicações acerca da motivação tomada para os códigos estão no documento enviado
 export class CalcadoControl {
 
     public createCalcado = async (req: Request, res: Response) => {
@@ -13,7 +14,7 @@ export class CalcadoControl {
 
             //Em caso de um dos termos não ter sido inserido
             if (!nome_produto || !cor || !marca || !tamanho || !preco || !quantidade_em_estoque) {
-                return res.status(404).json({
+                return res.status(400).json({
                     message: "Insira todos os campos do calçado"
                 })
             }
@@ -31,7 +32,7 @@ export class CalcadoControl {
         }
     }
 
-    public readAllCalcados = async ( res: Response) => {
+    public readAllCalcados = async (req: Request, res: Response) => {
         try {
             
             const calcados = await Calrepo.findAll();
@@ -45,7 +46,7 @@ export class CalcadoControl {
             return res.status(200).json(calcados)
 
         } catch (error) {
-            return res.status(200).json({
+            return res.status(400).json({
                 message: "Erro ao buscar calçados.",
                 error,
             })
@@ -73,7 +74,7 @@ export class CalcadoControl {
             return res.status(200).json(calcados);
 
         } catch (error) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "Erro ao buscar calçados.",
                 error
             })
@@ -82,13 +83,7 @@ export class CalcadoControl {
 
     public updateCalcado = async (req: Request, res: Response) => {
         try {
-            const { id } = req.params;
-
-            if (!id) {
-                return res.status(404).json({
-                    message: "Insira um Id válido.",
-                })
-            }
+            const id  = Number(req.params.id);
 
             const dadosAtualizar : Partial<CreateCalcadoDTO> = req.body;
 

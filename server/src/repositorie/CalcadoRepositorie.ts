@@ -4,32 +4,32 @@ import { Calcado, CreateCalcadoDTO } from '../global/types';
 export class CalcadoRepository {
   
   async create(data: CreateCalcadoDTO): Promise<Calcado> {
-    return await prisma.calçado.create({
+    return await prisma.calcado.create({
       data, 
     });
   }
 
   async findAll(): Promise<Calcado[]> {
-    return await prisma.calçado.findMany();
+    return await prisma.calcado.findMany();
   }
 
   async findBySize(size: number) : Promise<Calcado[]> {
-    return await prisma.calçado.findMany({
+    return await prisma.calcado.findMany({
       where: { 
         tamanho: size 
       },
     });
   }
 
-  async update(id: string, data: Partial<CreateCalcadoDTO>): Promise<Calcado> {
-    return await prisma.calçado.update({
-      where: { id },
+  async update(id: number, data: Partial<CreateCalcadoDTO>): Promise<Calcado> {
+    return await prisma.calcado.update({
+      where:  id ,
       data,
     });
   }
 
   async delete(id: string): Promise<void> {
-    await prisma.calçado.delete({
+    await prisma.calcado.delete({
       where: { id },
     });
   }

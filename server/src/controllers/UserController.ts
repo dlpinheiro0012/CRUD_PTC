@@ -9,8 +9,6 @@ Nesse arquivo de controle, eu separei cada uma das funções que se comunciam
  assincrona, para não ter delay quando forem chamadas e quebrar o programa 
  caso alguma não responda imdeiatamente. A mesma lógica usada para o CRUD dos
  usuários foi usada no CRUD dos calçados. 
-
- As funções foram implementadas como Arrow functions
  */
 
 const Urepo = new userRepository(); //Chamando o repositorio que se comunica com o banco de dados
