@@ -89,12 +89,6 @@ export class CalcadoControl {
 
             const calcadoAtualizado = await Calrepo.update(id, dadosAtualizar);
 
-            if (!calcadoAtualizado) {
-                return res.status(404).json({
-                    message: "Erro nos dados de atualização do calçado"
-                })
-            }
-
             return res.status(200).json(calcadoAtualizado);
 
         } catch (error) {
@@ -107,13 +101,7 @@ export class CalcadoControl {
 
     public deleteCalcado = async (req: Request, res: Response) => {
         try {
-            const { id } = req.params;
-
-            if (!id) {
-                return res.status(404).json({
-                    message: "Id não identificado",
-                })
-            }
+            const id  = Number(req.params.id);
 
             await Calrepo.delete(id);
             return res.status(200).json({
@@ -122,7 +110,7 @@ export class CalcadoControl {
 
         } catch (error) {
             return res.status(404).json({
-                message: "Erro ao deletar calçado.",
+                message: "Erro ao deletar calçado. Verifique possivelmente o id inserido",
                 error
             })
         }

@@ -23,12 +23,12 @@ export class CalcadoRepository {
 
   async update(id: number, data: Partial<CreateCalcadoDTO>): Promise<Calcado> {
     return await prisma.calcado.update({
-      where:  id ,
+      where: { id },
       data,
     });
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await prisma.calcado.delete({
       where: { id },
     });

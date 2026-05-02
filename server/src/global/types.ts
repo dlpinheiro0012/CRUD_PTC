@@ -7,7 +7,7 @@ também foram omitidas as datas de criação e update, pelo mesmo motivo
 */
 
 type Calcado = {
-  id: string;
+  id: number;
   nome_produto: string;
   cor: string;
   marca: string;
