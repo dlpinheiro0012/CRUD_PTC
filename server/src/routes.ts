@@ -13,7 +13,7 @@ routes.delete("/users/:id",userControl.deleteUser)
 
 routes.post("/calcados",calcadoControl.createCalcado)
 routes.get("/calcados", calcadoControl.readAllCalcados)
-routes.get("/calcados/tamanho/:size",calcadoControl.readBySize)
+routes.get("/calcados/tamanho/:tamanho",calcadoControl.readBySize)
 routes.put("/calcados/:id",calcadoControl.updateCalcado)
 routes.delete("/calcados/:id",calcadoControl.deleteCalcado)
 
